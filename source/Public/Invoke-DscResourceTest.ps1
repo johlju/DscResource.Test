@@ -480,7 +480,6 @@ function Invoke-DscResourceTest
         else
         {
             # Pester 5 tests
-            throw "TODO"
             $PesterV5AdvancedConfig = @{
                 Run          = @{}
                 Filter       = @{}
@@ -563,12 +562,22 @@ function Invoke-DscResourceTest
                 ModuleBase        = $ModuleBase
                 ModuleName        = $ModuleName
                 # ModuleManifest    = $ModuleUnderTestManifest
-                ProjectPath       = $ProjectPath
-                SourcePath        = $SourcePath
+                # ProjectPath       = $ProjectPath
+                # SourcePath        = $SourcePath
                 # SourceManifest   = $SourceManifest.FullName
                 ExcludeModuleFile = $ExcludeModuleFile
                 ExcludeSourceFile = $ExcludeSourceFile
                 DefaultBranch     = $MainGitBranch
+            }
+
+            if ($ProjectPath)
+            {
+                $getDscResourceTestContainerParameters.Add('ProjectPath',$ProjectPath)
+            }
+
+            if ($SourcePath)
+            {
+                $getDscResourceTestContainerParameters.Add('SourcePath', $SourcePath)
             }
 
             $container = Get-DscResourceTestContainer @getDscResourceTestContainerParameters
